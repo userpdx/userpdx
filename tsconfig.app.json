@@ -1,0 +1,17 @@
+{
+	"extends": "@vue/tsconfig/tsconfig.dom.json",
+	"include": ["env.d.ts", "src/**/*", "src/**/*.vue", "./auto-imports.d.ts"],
+	"exclude": ["src/**/__tests__/*"],
+	"compilerOptions": {
+		"esModuleInterop": true,
+		"composite": true,
+		"baseUrl": ".",
+		"ignoreDeprecations": "5.0",
+		"target": "ES5",
+		"types": ["vite/client", "./auto-imports.d.ts"],
+		"paths": {
+			"@/*": ["./src/*"]
+		},
+		"lib": ["ES2023", "dom", "scripthost"]
+	}
+}
