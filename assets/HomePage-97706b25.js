@@ -1,0 +1,1 @@
+import{o as n,c as s}from"./index-079fe171.js";const _=(e,o)=>{const t=e.__vccOpts||e;for(const[c,r]of o)t[c]=r;return t},a={},f={style:{"font-size":"26px",color:"red"}};function l(e,o){return n(),s("div",f,"首页")}const i=_(a,[["render",l]]);export{i as default};
