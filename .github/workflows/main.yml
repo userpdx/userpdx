@@ -1,27 +1,37 @@
-name: CI Github Pages
+name: Deploy to GitHub Pages
+
+# 触发条件：当代码推送到 main 分支时触发
 on:
-  #监听push操作
   push:
     branches:
-      - main # 这里只配置了main分支，所以只有推送main分支才会触发以下任务
+      - main
+
 jobs:
-  # 任务ID
   build-and-deploy:
-    # 运行环境
     runs-on: ubuntu-latest
-    # 步骤
+
     steps:
-      # 官方action，将代码拉取到虚拟机
-      - name: Checkout  ️
-        uses: actions/checkout@v3
+      # 检出代码
+      - name: Checkout repository
+        uses: actions/checkout@v2
 
-      - name: Install and Build # 安装依赖、打包，如果提前已打包好无需这一步
-        run: |
-          pnpm install
-          pnpm run build
-
-      - name: Deploy # 部署
-        uses: JamesIves/github-pages-deploy-action@v4.3.3
+      # 设置 Node.js 环境
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
         with:
-          branch: gh-pages # 部署后提交到那个分支
-          folder: dist # 这里填打包好的目录名称
+          node-version: '16'
+
+      # 安装依赖
+      - name: Install dependencies
+        run: pnpm install
+
+      # 构建项目
+      - name: Build project
+        run: pnpm run build
+
+      # 部署到 GitHub Pages
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist
